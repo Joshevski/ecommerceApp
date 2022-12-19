@@ -1,5 +1,9 @@
 import {initializeApp} from 'firebase/app' // initialize
-import { getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
+import { 
+getAuth, 
+signInWithRedirect, 
+signInWithPopup, 
+GoogleAuthProvider} from 'firebase/auth'
 //this is for out authentication.
 
 
@@ -24,13 +28,14 @@ const firebaseConfig = {
   // Initialize Firebase
   const firebaseApp = initializeApp(firebaseConfig);
 
-  const provider = new GoogleAuthProvider() // for google auth  
-  provider.setCustomParameters({
+  const googleProvider = new GoogleAuthProvider() // for google auth  
+  googleProvider.setCustomParameters({
         prompt: 'select_account'
   })
 
   export const auth = getAuth()
-  export const signInWithGooglePopup = () => signInWithPopup(auth, provider)
+  export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider)
+  export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider)
   export const db = getFirestore() 
 
   export const createUserDocumentFromAuth = async (userAuth) => {
@@ -42,7 +47,7 @@ const firebaseConfig = {
         console.log(userSnapshot.exists()) // method to see if the reference exists in thedb.
 
         if(!userSnapshot.exists()) {
-            const {displayName, email, emailVerified } = userAuth;
+            const {displayName, email } = userAuth;
             const createdAt = new Date()
 
             try {
@@ -57,7 +62,7 @@ const firebaseConfig = {
 
             }
         }
-        
+
         return userDocRef 
 
         //if users data not exists
