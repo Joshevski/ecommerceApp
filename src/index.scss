@@ -1,5 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // resetting settings.
+}
 
 body {
   font-family: 'kanit'
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
